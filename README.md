@@ -10,7 +10,8 @@ It's a work in progress, I haven't finished reading it yet.
     - [Knowledge Sharing](#knowledge-sharing)
     - [How to Lead a Team](#how-to-lead-a-team)
     - [Leading at scale](#leading-at-scale)
-- Processes *(Work in progress)*
+- [Processes](#processes)
+    - [Style Guides and rules](#style-guides-and-rules)
 - Tests *(Work in progress)*
 - Various notes (Depreciation, Version Control, Code Search) *(Work in progress)*
 
@@ -19,7 +20,7 @@ It's a work in progress, I haven't finished reading it yet.
 
 - Software engineering is programming integrated over time.
 - We might need to delineate between **programming** tasks (development) and **software engineering** tasks (development, modification, maintenance).
-- Programming is about producing code. Software engineering extends that to include the maintenance of that code for its useful life span.
+- Programming is about producing code. Software engineering extends that to include **the maintenance** of that code for its useful life span.
 - Our project is sustainable if, for the expected life span of your software, we are capable of reacting to whatever valuable change comes along, for either technical or business reasons. We may choose to not change things, but we need to be capable.
 - Hyrum’s Law: > with a sufficient number of users of an API, it does not matter what you promise in the contract: all observable behaviors of your system will be depended on by somebody.
 - There's a fundamental difference between “it works” versus “it is correct”. A basic example:  
@@ -138,3 +139,35 @@ Unless the task is truly time sensitive and on fire, bite the bullet and assign 
     - The bottom 20% are probably neither urgent nor important and very easy to delete or ignore.
     - There’s a middle 60%, which might contain some bits of urgency or importance, but it’s a mixed bag.
     - At the top, there’s 20% of things that are absolutely, critically important.
+
+## Processes
+### Style Guides and rules
+At Google, to manage their codebase, they maintain a [set of style guides](https://google.github.io/styleguide/) that define their rules.  
+- **Rules are laws**. They are not just suggestions or recommendations, but **strict, mandatory laws**.  
+- As an organization grows, the established rules and guidelines shape the **common vocabulary of coding**.  
+    - A common vocabulary allows engineers to concentrate on **what their code needs to say** rather than how they’re saying it.
+- Principles that guide the development of their rules:
+    - **Rules must pull their weight**:
+        - Not everything should go into a style guide.
+        - With too many rules, not only will it become harder for engineers to remember all relevant rules, but it also becomes harder for new engineers to learn their way.
+    - **Optimize for the reader**:
+        - Given the passage of time, **our code will be read far more frequently than it is written**.
+        - They value **“simple to read”** over “simple to write.” 
+    - **Be consistent**:
+        - Consistency is what enables any engineer to jump into an unfamiliar part of the codebase and get to work fairly quickly.
+        - A local project can have its unique personality, but its **tools** are the same, its **techniques** are the same, its **libraries** are the same, and it all **Just Works**.
+        - Hierarchy of consistency: “Be consistent” starts **locally**, where the norms within a given file precede those of a given team, which precede those of the larger project, which precede those of the overall codebase.
+    - **Avoid error-prone and surprising constructs**:
+        - Their style guides restrict the use of some of the more surprising, unusual, or tricky constructs in the languages that they use.
+        - They place higher value on **simplified, straightforward code** that is easier to **understand** and **maintain**.
+    - **Concede to practicalities when necessary**:
+        - When necessary, they permit concessions to optimizations and practicalities that might otherwise conflict with their rules.
+        - **Documenting the reasoning** behind a given decision gives them the advantage of being able to recognize when things need to change.
+- **Comments**:
+    - **Documentation comments** (the block comments prepended to a given file, class, or function) describe the design or intent of the code that follows.
+    - **Implementation comments** (the comments interspersed throughout the code itself) justify or highlight non-obvious choices, explain tricky bits, and underscore important parts of the code.
+They have style guide rules covering both types of comments, requiring engineers to **provide the explanations another engineer might be looking for** when reading through the code.
+- Google 101:
+    Software engineers come in to a new project or codebase with knowledge of the programming language they are going to be using, but lacking the knowledge of how the programming language is used within Google. To bridge this gap, they maintain a series of *language@Google 101* courses for each of the primary programming languages in use.
+    
+### Code Review
