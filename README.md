@@ -12,6 +12,7 @@ It's a work in progress, I haven't finished reading it yet.
     - [Leading at scale](#leading-at-scale)
 - [Processes](#processes)
     - [Style Guides and rules](#style-guides-and-rules)
+    - [Code Review](#code-review)
 - Tests *(Work in progress)*
 - Various notes (Depreciation, Version Control, Code Search) *(Work in progress)*
 
@@ -171,3 +172,76 @@ They have style guide rules covering both types of comments, requiring engineers
     Software engineers come in to a new project or codebase with knowledge of the programming language they are going to be using, but lacking the knowledge of how the programming language is used within Google. To bridge this gap, they maintain a series of *language@Google 101* courses for each of the primary programming languages in use.
     
 ### Code Review
+At Google, code reviews take place before a change can be committed to the codebase; this stage is also known as a *precommit review*.  
+
+The primary end goal of a code review is to get another engineer to consent to the change, which they denote by tagging the change as “looks good to me” (**LGTM**).  
+
+At Google, **only one LGTM is required by default**.  
+
+Their code review tool is called "Critique".  
+
+- **A typical code review at Google**:
+    1. A user writes a change to the codebase in their workspace.
+        - This *author* then creates a snapshot of the change: a patch and corresponding description that are uploaded to the code review tool.
+        -  This change produces a *diff* against the codebase, which is used to evaluate what code has changed.
+    2. The *author* can use this initial patch to apply automated review comments or do self-review.
+        - When the author is satisfied with the diff of the change, they mail the change to one or more *reviewers*.
+    3. Reviewers open the change in the code review tool and post comments on the diff.
+    4. The author modifies the change and uploads new snapshots based on the feedback and then replies back to the reviewers.
+    5. After the reviewers are happy with the latest state of the change, they agree to the change and accept it by marking it as "looks good to me" (LGTM).
+    6. After a change is marked LGTM, the author is allowed to commit the change to the codebase.
+
+- There are three aspects of review  that require “approval” for any given change at Google:
+    - A **correctness** and **comprehension** check from another engineer that the code is **appropriate** and does **what the author claims it does**.
+    - Approval from one of the code owners that the code is appropriate for this particular part of the codebase.
+    - Approval that the code conforms to the language’s style and  best practices, checking whether the code is written in the manner they expect.
+Most reviews have **one person assuming all three roles**, which speeds up the process quite a bit.  
+Importantly, **the author can also assume the latter two roles**, needing **only an LGTM** from another engineer to check code into their own codebase.  
+
+A well-designed code review process and a culture of taking code review seriously provides the following benefits:
+- Checks code correctness
+- Ensures the code change is comprehensible to other engineers
+- Enforces consistency across the codebase
+- Psychologically promotes team ownership
+- Enables knowledge sharing
+- Provides a historical record of the code review itself  
+
+Many of these benefits are **critical** to a software organization **over time**, and many of them are **beneficial** to not only the **author** but also the **reviewers**.  
+
+An obvious benefit of code review is that it **allows a reviewer to check the “correctness” of the code change**.  
+
+Having another set of eyes look over a change helps ensure that the change **does what was intended**.  
+
+Unlike the deference reviewers should give authors regarding design decisions, it’s often useful to treat questions on code comprehension using the maxim **“the customer is always right.”**  
+
+**Any questions you get now will be multiplied many-fold over time**.  
+
+***Remember that you are not your code, and that this change you propose is not “yours” but the team’s.***
+> It is human nature to be proud of one’s craft and to be reluctant to open up one’s code to criticism by others.  
+> It is also natural to be somewhat reticent to welcome critical feedback about code that one writes.  
+> The code review process provides a mechanism to **mitigate what might otherwise be an emotionally charged interaction**.  
+
+- Code Review Best Practices:
+    - **Be Polite and Professional**
+        - Reviewer:
+            - Reviewers should defer to authors on particular approaches and only point out alternatives if the author’s approach **is deficient**.
+            - It’s better to **ask questions** on why something was done the way it was before assuming that approach is wrong.
+        - Author:
+            - Be receptive to questions on your approach, and be prepared to **explain why you did things in certain ways**.
+            - Remember that part of the responsibility of an author is to make sure this code is **understandable** and **maintainable** for the future.
+            - It’s important to treat each reviewer comment within a code review as a **TODO item**.
+            - If you disagree with a reviewer’s comment, **let them know**, and let them know why and don’t mark a comment as resolved until each side has had a chance to offer alternatives.
+            - If an author doesn’t agree with a reviewer, the author should offer an alternative and ask the reviewer to [PTAL (please take another look)](https://en.wiktionary.org/wiki/PTAL).
+    - **Write Small Changes**
+        - A code review should ideally be **easy to digest** and **focus on a single issue**.
+        - Changes should generally be limited to about **200 lines of code**.
+    - **Write Good Change Descriptions**
+    - **Keep Reviewers to a Minimum**
+    - **Automate Where Possible**
+        - Opportunities to automate mechanical human tasks should be explored (Static Analysis, etc...).
+        - Automation is critical for scaling the process.
+- Types of Code Reviews:
+    - **Greenfield reviews** (new code and and new functionnality)
+    - **Behavioral Changes, Improvements, and Optimizations**
+    - **Bug Fixes and Rollbacks**
+    - **Refactorings and Large-Scale Changes**
