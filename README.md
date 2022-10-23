@@ -13,6 +13,7 @@ It's a work in progress, I haven't finished reading it yet.
 - [Processes](#processes)
     - [Style Guides and rules](#style-guides-and-rules)
     - [Code Review](#code-review)
+    - [Documentation](#documentation)
 - Tests *(Work in progress)*
 - Various notes (Depreciation, Version Control, Code Search) *(Work in progress)*
 
@@ -244,4 +245,70 @@ Unlike the deference reviewers should give authors regarding design decisions, i
     - **Greenfield reviews** (new code and and new functionnality)
     - **Behavioral Changes, Improvements, and Optimizations**
     - **Bug Fixes and Rollbacks**
-    - **Refactorings and Large-Scale Changes**
+    - **Refactorings and Large-Scale Changes**  
+
+### Documentation  
+Documentation refer to standalone documents and code comments.  
+
+Documentation helps **answer questions** like these :
+- Why were these **design decisions** made?
+- Why did we implement this code in **this manner**?
+- Why did ***I*** implement this code in this manner, if you’re looking at your own code two years later?  
+
+Documentation provides the following **benefits**:
+- Writing documentation is one of the **surest ways** to figure out if your API makes sense.
+- It provides a **road map** for maintenance and a historical record.
+- It makes your code look **more professional** and drive traffic. 
+- It will prompt **fewer questions** from other users.
+
+Documentation is generally considered “poor” by engineers for the following reasons:
+- Documentation generally requires **more effort up front** and doesn’t provide **clear benefits** to an author until later.
+- Engineers often view writing as a **separate skill** than that of programming.
+- Some engineers don’t feel like they are **capable writers**.
+- Writing documentation is often **more difficult** because of limited tools support or integration into the developer workflow.
+- Documentation is viewed as an **extra burden** rather than something that will make maintenance of their existing code easier.  
+
+Documentation is like code (see *[Docs as Code](https://www.writethedocs.org/guide/docs-as-code/)*)
+
+Like a programming language, documentation has **rules**, a particular **syntax**, and **style** decisions, often to accomplish a similar purpose as that within code:
+- Enforce consistency
+- Improve clarity
+- Avoid (comprehension) errors.  
+
+**A good documentation should**:
+- Have internal policies or rules to be followed
+- Be placed under source control
+- Have clear ownership responsible for maintaining the docs
+- Undergo reviews for changes
+- Have issues tracked, as bugs are tracked in code
+- Be periodically evaluated
+- If possible, be measured for aspects such as accuracy, freshness, etc.  
+
+**Know your audience**:
+- One of the most important mistakes that engineers make when writing documentation is to write only for themselves.  
+- Before you begin writing, you should (formally or informally) identify the audience(s) your documents need to satisfy.  
+- Always try to identify a primary audience and write to that audience.  
+
+WHO, WHAT, WHEN, WHERE, and WHY:
+- **WHO** identifies the **audience**.
+- **WHAT** identifies the **purpose of this document**: “This document is a tutorial designed to start a Frobber server in a test environment.”
+- **WHEN** identifies when this document was **created**, **reviewed**, or **updated**.
+- **WHERE** is often implicit as well, but decide where the document **should live**.
+- **WHY** sets up the **purpose** for the document.  
+
+**Documentation Types**:
+- Reference documentation, including code comments
+- Design documents
+- Tutorials
+- Conceptual documentation
+- Landing pages
+
+**Design Docs**:  
+
+Most teams at Google require an approved design document **before starting work** on any major project.  
+
+Some teams at Google require such design documents to be **discussed and debated** at specific team meetings.  
+
+A good design document should cover the **goals of the design**, its **implementation strategy**, and propose **key design decisions** with an emphasis on their **individual trade-offs**.  
+
+The best design documents suggest **design goals** and cover **alternative designs**, denoting their **strong** and **weak** points.
