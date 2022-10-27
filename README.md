@@ -14,7 +14,11 @@ It's a work in progress, I haven't finished reading it yet.
     - [Style Guides and rules](#style-guides-and-rules)
     - [Code Review](#code-review)
     - [Documentation](#documentation)
-- Tests *(Work in progress)*
+- [Tests](#tests)
+    - [Testing Overview](#testing-overview)
+    - [Unit Testing](#unit-testing)
+    - [Test Doubles](#test-doubles)
+    - [Larger Testing](#larger-testing)
 - Various notes (Depreciation, Version Control, Code Search) *(Work in progress)*
 
 ## Management
@@ -311,4 +315,95 @@ Some teams at Google require such design documents to be **discussed and debated
 
 A good design document should cover the **goals of the design**, its **implementation strategy**, and propose **key design decisions** with an emphasis on their **individual trade-offs**.  
 
-The best design documents suggest **design goals** and cover **alternative designs**, denoting their **strong** and **weak** points.
+The best design documents suggest **design goals** and cover **alternative designs**, denoting their **strong** and **weak** points.  
+
+## Tests
+### Testing Overview
+**Benefits of Testing Code**:
+- Less debugging
+- Increased confidence in changes
+- Improved documentation
+- Simpler reviews
+- Thoughtful design
+- Fast, high-quality releases  
+
+As the first clients of your code, a test can tell you much about your **design choices**.  
+
+As a codebase grows, the test suite will begin to face challenges like **instability** and **slowness**.  
+
+If testing becomes a productivity sink, constantly inducing toil and uncertainty, engineers will lose trust and begin to find workarounds.  
+
+**A bad test suite can be worse than no test suite at all.**
+
+> Our experience suggests that as you approach 1% flakiness, the tests begin to lose value.  
+
+At Google, they have three sizes of tests:
+- **Small Tests**:
+    - Must run in a **single process**.
+    - At Google, they restrict this even further to say that the small tests must run on a **single thread**.
+    - They aren’t allowed to sleep, **perform I/O operations** or make any other blocking calls.
+- **Medium Tests**:
+    - Can span **multiple processes**, use threads and **can make blocking calls**, including **network calls**, to localhost.
+- **Large Tests**:
+    - Large tests **remove the localhost restriction** imposed on medium tests, allowing the test and the system being tested to span across multiple machines.  
+
+Placing restrictions on small tests makes **speed** and **determinism** much easier to achieve.  
+
+Larger tests are saved for only the most **complex** and **difficult** testing scenarios.  
+
+At Google, they tend to aim to have a mix of around:
+- 80% of small tests
+- 15% of medium tests
+- 5% of large tests  
+
+**The Beyoncé Rule**: *“If you liked it, then you shoulda put a test on it.”*  
+
+**Code coverage** is a measure of which lines of feature code are exercised by which tests.  
+
+If you have 100 lines of code and your tests execute 90 of them, you have 90% code coverage.  
+
+Code coverage only measures that a line was invoked, **not what happened as a result**.  
+
+### Unit Testing  
+Unit tests are usually **small** in size, but this isn’t always the case.  
+
+After preventing bugs, the most important purpose of a test is to **improve productivity**.  
+
+They tend to be **easy to write** at the same time as the code they’re testing.  
+
+They tend to make it **easy to understand** what’s wrong when they fail.  
+
+> A  test is complete when its body contains all of the information a reader needs in order to **understand** how it arrives at its result.
+
+> A test is concise when it contains **no other distracting or irrelevant information**.
+
+It can often be worth violating the [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle if it leads to **clearer tests**.  
+
+**Test Behaviors, Not Methods**:
+- Rather than writing a test for each method, **write a test for each behavior**.
+- Behaviors can often be expressed using the words **"given,"** **"when,"** and **"then"**:
+    - *“**Given** that a bank  account is empty, **when** attempting to withdraw money from it, **then** the transaction is rejected."*
+
+- The mapping between methods and behaviors is **many-to-many**:
+    - Most nontrivial methods implement **multiple behaviors**, and some behaviors rely on the interaction of **multiple methods**.  
+
+**Don't put logic in tests**  
+
+### Test Doubles
+A test double is an object or function that can **stand in for a real implementation in a test**, similar to how a stunt double can stand in for an actor in a movie.  
+
+For example: An in-memory database.  
+
+Techniques for using test doubles:
+- *Faking* (for example, an in-memory database)
+- *Stubbing* (the process of giving behavior to a function that otherwise has no behavior on its own)
+- *Interacting Testing* (how a function is called without actually calling the implementation of the function)  
+
+A fake is often the ideal solution if a real implementation can’t be used in a test.  
+
+### Larger Testing
+Large tests provide more confidence that the **overall system** works as intended.  
+
+- They may be **slow** (Google have tests that run for multiple hours or even days).
+- They may be **nonhermetic**.
+- They may be **nondeterministic**.
