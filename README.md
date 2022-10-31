@@ -19,7 +19,10 @@ It's a work in progress, I haven't finished reading it yet.
     - [Unit Testing](#unit-testing)
     - [Test Doubles](#test-doubles)
     - [Larger Testing](#larger-testing)
-- Various notes (Depreciation, Version Control, Code Search) *(Work in progress)*
+- [Various notes](#various-notes)
+    - [Depreciation](#depreciation)
+    - [Version Control and Branch Management](#version-control-and-branch-management)
+    - [Dependency management](#dependency-management)
 
 ## Management
 ### What Is Software Engineering?
@@ -406,4 +409,52 @@ Large tests provide more confidence that the **overall system** works as intende
 
 - They may be **slow** (Google have tests that run for multiple hours or even days).
 - They may be **nonhermetic**.
-- They may be **nondeterministic**.
+- They may be **nondeterministic**.  
+
+## Various Notes
+
+### Depreciation  
+
+- Software systems have continuing maintenance costs that should be weighed **against** the costs of removing them.  
+
+- Removing things is often more difficult than building them to begin with because existing users are often **using the system beyond its original design**.  
+
+> Unlike with most of the other topics we have discussed in this book, Google is still learning how best to deprecate and remove software systems.
+
+### Version Control and Branch Management  
+
+-  A VCS (Version Control System) helps coordinate the activities of teams by allowing multiple developers to work on the same set of files **simultaneously**.  
+
+- **Version control allows us to scale up teams and organizations**.  
+
+- Google rely on an in-house-developed centralized VCS called **Piper**, built to run as a **distributed microservice** in their production environment.  
+
+- **Consistency has a profound importance at all levels in an organization**.  
+
+- If every project in our organization has the same secrecy, legal, privacy, and security requirements, a true **monorep** is a fine way to go.  
+
+- Complex technology doesn’t need to be used in a complex fashion: **keeping branch policies simple generally leads to better engineering outcomes**  
+
+### Dependency management  
+
+ External dependencies are those on artifacts that are built and stored outside of the build system.  
+
+ One of the biggest differences between external and internal dependencies is that external dependencies have versions, and those versions exist independently of the project’s source code.  
+
+ **Considerations When Importing**:
+ - Does the project have tests that you can run?
+ - Do those tests pass?
+ - Who is providing that dependency?
+ - What sort of compatibility is the project aspiring to?
+ - Does the project detail what sort of usage is expected to be supported?
+ - How popular is the project?
+ - How long will we be depending on this project?
+ - How often does the project make breaking changes?  
+
+**Add to this a short selection of internally focused questions**:
+ - How complicated would it be to implement that functionality within our organization?
+ - What incentives will we have to keep this dependency up to date?
+ - Who will perform an upgrade?
+ - How difficult do we expect it to be to perform an upgrade?  
+
+ > We also need to be aware of the **impact of time**: all software has bugs, some of those will be security critical, and some fraction of our dependencies will therefore be critical to **update over a long enough period of time**.
