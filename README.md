@@ -2,8 +2,6 @@
 
 My arbitrary selection of quotes and notes on the book [Software engineering at Google](https://abseil.io/resources/swe-book "Software engineering at Google").  
 
-It's a work in progress, I haven't finished reading it yet.
-
 - [Management](#management)
     - [What Is Software Engineering?](#what-is-software-engineering)
     - [How to work well on teams](#how-to-work-well-on-teams)
