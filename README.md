@@ -23,6 +23,8 @@ It's a work in progress, I haven't finished reading it yet.
     - [Depreciation](#depreciation)
     - [Version Control and Branch Management](#version-control-and-branch-management)
     - [Dependency management](#dependency-management)
+    - [Continuous integration](#continuous-integration)
+    - [Continuous delivery](#continuous-delivery)
 
 ## Management
 ### What Is Software Engineering?
@@ -457,4 +459,41 @@ Large tests provide more confidence that the **overall system** works as intende
  - Who will perform an upgrade?
  - How difficult do we expect it to be to perform an upgrade?  
 
- > We also need to be aware of the **impact of time**: all software has bugs, some of those will be security critical, and some fraction of our dependencies will therefore be critical to **update over a long enough period of time**.
+ > We also need to be aware of the **impact of time**: all software has bugs, some of those will be security critical, and some fraction of our dependencies will therefore be critical to **update over a long enough period of time**.  
+
+ ### Continuous integration  
+The fundamental goal of *Continuous Integration* (CI) is to **automatically catch problematic changes as early as possible**.  
+
+It is natural to conceptualize CI in terms of **testing** because the two are **tightly coupled**.  
+
+From a testing perspective, CI is a paradigm  to inform the following:
+- *Which* tests to run when in the development/release workflow.
+- *How* to compose the system under test (SUT) at each point.  
+
+ **The cost of a bug grows almost exponentially the later it is caught**.  
+
+ ***Canarying***—or deploying to a small percentage of production first—can **help minimize issues** that do make it to production, with a subset-of-production initial feedback loop preceding all-of-production.  
+ However, canarying can cause problems, too, particularly around compatibility between deployments when multiple versions are deployed at once.  
+
+ ### Continuous delivery
+ Continuous Delivery is a software development discipline where you **build software in such a way that the software can be released to production at any time**.  
+
+ From Eric Raymond’s [The Cathedral and the Bazaar](http://www.catb.org/~esr/writings/cathedral-bazaar/) to Eric Reis’ [The Lean Startup](http://theleanstartup.com/book), the key to any organization’s long-term success has always been in its **ability to get ideas executed and into users’ hands as quickly as possible and reacting quickly to their feedback**.  
+
+ Martin Fowler, in his book [Continuous Delivery](https://martinfowler.com/bliki/ContinuousDelivery.html) (aka CD), points out that
+ > “The biggest risk to any software effort is that you end up building something that isn’t useful.  
+ **The earlier and more frequently you get working software in front of real users, the quicker you get feedback to find out how valuable it really is**.”  
+
+ Over time, smaller batches of changes result in higher quality.  
+
+ > “One of our codebases, YouTube, is a large, monolithic Python application. The release process is laborious, with Build Cops, release managers, and other volunteers. Almost every release has multiple cherry-picked changes and respins. There is also a 50-hour manual regression testing cycle run by a remote QA team on every release.”  
+
+ **Ship only what gets used**  
+
+ *Bloat* is an unfortunate side effect of most software development life cycles, and **the more successful a product becomes, the more *bloated* its code base typically becomes**.  
+ One downside of a speedy, efficient release train is that this bloat is often magnified.  
+ It can manifest in challenges to the product team and even to the users: This can mean the user’s device pays the cost in terms of space, download, and data costs, **even for features they never use**, whereas developers pay the cost of **slower builds, complex deployments, and rare bugs**.  
+
+ **Ship only what gets used**: Monitor the cost and value of any feature in the wild to know whether it’s still **relevant** and delivering sufficient **user value**.  
+
+ **Faster is safer**: Ship **early** and **often** and in **small batches** to reduce the risk of each release and to minimize time to market.
